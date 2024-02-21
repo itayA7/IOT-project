@@ -1,0 +1,73 @@
+.bb {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+
+#cam-stream,
+#canvas {
+    position: absolute;
+    padding-top: 600px;
+
+}
+
+.popup-result {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #000;
+    z-index: 9999;
+    text-align: center;
+}
+
+.popup-result-content {
+    font-size: 18px;
+}
+
+
+.popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+    /* Adjust width as needed */
+}
+
+.popup h2 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.popup button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-family: 'Varela Round', sans-serif;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup button:hover {
+    background-color: #45a049;
+}

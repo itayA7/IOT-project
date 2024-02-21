@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Therapy Data</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/therapy.css">
+    <script src="./js/cookies.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/posenet"></script>
+    <link href="https://fonts.googleapis.com/css?family=Varela+Round" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+</head>
+
+<body>
+    <ul class="navigation_bar">
+        <li> <a href="index.html"> Home</a></li>
+        <li> <a href="login.html"> Login</a></li>
+        <li> <a href="signup.html"> Sign Up</a></li>
+        <li> <a href="therapy.html" id="therapy-page-button"> Therapy Sessions</a></li>
+
+    </ul>
+
+
+
+    <div id="exercisePopup" class="popup" style="display: none;">
+        <h2>Choose an Exercise</h2>
+        <button onclick="selectExercise(1)">Shoulder</button>
+        <button onclick="selectExercise(2)">Knee</button>
+        <!-- Add more buttons for other exercises if needed -->
+    </div>
+
+
+    <button type="button" onclick="startTherapy()" id="startButton" style="display: none;">Start your Therapy
+        Now!</button>
+
+    <div class="bb">
+        <img src="" width="640" height="480" id="cam-stream" style="display: none;" crossorigin />
+        <canvas id="canvas" width="640" height="480"></canvas>
+        <div id="timer"></div>
+    </div>
+
+    <div id="popup-result-id" class="popup-result">
+        <span class="popup-result-content" id="popupData"></span>
+    </div>
+
+
+</body>
+
+<script src="./js/therapy.js"></script>
+
+</html>

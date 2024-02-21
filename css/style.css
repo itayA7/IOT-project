@@ -1,0 +1,45 @@
+body {
+  background-color: #C4D6ED;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  margin: 0;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+
+}
+
+/* Navigation bar styles */
+.navigation_bar {
+  margin: 0;
+  list-style-type: none;
+  background-color: #35daec;
+  overflow: hidden;
+}
+
+.navigation_bar li {
+  float: left;
+}
+
+.navigation_bar li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navigation_bar li a:hover {
+  background-color: #111;
+}

@@ -1,0 +1,91 @@
+.offers {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 6rem;
+}
+
+.offers section {
+  background-color: #f2f2f2;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin: 10px;
+  max-width: 400px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(50px);
+  animation: fade-in 1s ease-out forwards;
+}
+
+.offers section a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #ff6b6b;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.offers section a:hover {
+  background-color: #ff6b6ba2;
+}
+
+
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+p {
+  margin: 0;
+}
+
+.home-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.title {
+  font-size: 1.7rem;
+  font-weight: bolder;
+  width: 25ch;
+  white-space: nowrap;
+  overflow: hidden;
+  animation: typing 2s steps(20);
+}
+
+
+.info-wrapper {
+  display: flex;
+  padding: 10px;
+
+}
+
+.info-text {
+  font-size: 1.2rem;
+  font-weight: normal;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  padding-top: 60px;
+  padding-left: 1rem;
+}
+
+img {
+  margin: 10px;
+}
+
+
+.text-center text-white {
+  margin-top: 30px;
+}
