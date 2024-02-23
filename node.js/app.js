@@ -53,7 +53,9 @@ app.post("/espcam/dtw",async (req,res)=>{
     const excNumberInput=req.body.exeNum;
     const result=await runPythonScript(keypointsInput,excNumberInput);
     console.log(result);
-3  }
+    res.status(401).json({ status: "success", min_dtw_distances: result });
+
+  }
   catch(error){
     const errorCode = error || "unknown";
     res.status(401).json({ status: "failed", message: errorCode });
@@ -142,7 +144,7 @@ async function getEspCamIP(){
 process.env.PYTHONUNBUFFERED=1;
 async function runPythonScript(jsonData, excNumber) {
   return new Promise((resolve, reject) => {
-    const pythonProcess = spawn('C:/Users/itaya/AppData/Local/Programs/Python/Python310/python.exe', ['../python ml/testsNode.py', excNumber]);
+    const pythonProcess = spawn('C:/Users/itaya/AppData/Local/Programs/Python/Python310/python.exe', ['../python ml/testss.py', excNumber]);
     let result;
     pythonProcess.stdout.on('data', (data) => {
       result = JSON.parse(data.toString());

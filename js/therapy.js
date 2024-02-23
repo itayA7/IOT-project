@@ -1,6 +1,8 @@
 imageElement = document.getElementById('cam-stream');
 canvas = document.getElementById('canvas');
 ctx = canvas.getContext('2d');
+var audioElement = document.getElementById('audio');
+
 var maxWaitTime = 3500; 
 var frame = 0;
 var poses = [];
@@ -33,6 +35,8 @@ window.onload=async ()=>{
     catch{
         console.log('There is a problem ):');
         alert("There is a problem ): Our Server is not available,refresh the page")    
+        window.location.href="./index.html";
+
     }
    
 }
@@ -55,7 +59,7 @@ function checkServerAvailability(serverIP, timeout) {
         })
         .catch(error => {
             console.log('Server is not running or connection timed out');
-            alert("Server is not running.Make Sure the Cam is Working");
+            alert("ESP Cam Server is not running.Make Sure the Cam is Working");
             window.location.href="./index.html";
         });
 }
@@ -73,7 +77,6 @@ function recognizePoseFramesAuto() {
             flipHorizontal: false
         });
     }).then(function (pose) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawKeypoints(pose.keypoints);
             var currentPose = [];
             pose.keypoints.forEach((point, index) => {
@@ -83,6 +86,8 @@ function recognizePoseFramesAuto() {
                 }
             });
             poses.push(currentPose);
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
         })
 }
 
@@ -124,9 +129,10 @@ async function startTherapy(){
         recognizePoseFramesAuto();
     }, 400);
     setTimeout(async()=>{
+        audioElement.play();
+
         clearInterval(poseDetection);
         clearInterval(countdownInterval);
-        console.log(poses);
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         timerDisplay.textContent = 'Countdown finished';
         const response = await fetch("http://localhost:8080/espcam/dtw", {
@@ -138,10 +144,7 @@ async function startTherapy(){
         });
         const data = await response.json();
         console.log(data);
-        var isGood="You are doing Great Job!!!"
-        if(data.res.minDistance>4.2){
-            isGood="Oppss...please follow the instructions"
-        }
+       
         document.getElementById('popupData').textContent =isGood;
         document.getElementById('popup-result-id').style.display = 'block';;
     },1000*(countdown+1));

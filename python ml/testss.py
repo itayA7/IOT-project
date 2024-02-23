@@ -15,22 +15,15 @@ def load_keypoints_from_json(file_path):
 def manhattan_distance(x, y):
     return np.sum(np.abs(x - y))
 
+def euclidean_distance(x, y):
+    return np.sqrt(np.sum((x - y)**2))
 
 def calculate_dtw_distance(seq1, seq2):
-    distance, _, _, _ = dtw(seq1, seq2, dist=manhattan_distance)
+    distance, _, _, _ = dtw(seq1, seq2, dist=euclidean_distance)
     return distance
 
 
-def l2_normalize(vector):
-    """
-    Performs L2 normalization on a given vector.
-
-    Parameters:
-    - vector: Input vector (NumPy array or list)
-
-    Returns:
-    - normalized_vector: L2 normalized vector
-    """
+def l2_normalize(vector):   
     vector = np.array(vector)
     norm = np.linalg.norm(vector, ord=2)  # Calculate L2 norm
     normalized_vector = vector / norm if norm != 0 else vector  # Perform normalization, avoid division by zero
@@ -105,4 +98,4 @@ if __name__ == "__main__":
     exc_number_from_node = sys.argv[1]
     input_file_path = 'keypoints_json/bad_test.json'
     directory_path = 'E:/מכללה/IOT/final project-2024/python ml/keypoints_json/exc'+str(exc_number_from_node)
-    main( directory_path)
+    main(directory_path)

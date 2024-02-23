@@ -17,15 +17,15 @@ document.getElementById("login_form").addEventListener("submit", async (event) =
     });
     const data = await response.json();
     if (data.status == "failed"){
-      document.getElementById("message").innerHTML = data.message;
+      document.getElementById("message").innerHTML = "Email Address And/Or Password are incorrect";
     }
     else if (data.status == "success") {
       if (document.getElementById("remember-me").checked) {
         setCookie("userId", data.uid, 2);
         setCookie("username", data.user.username, 2);
       } else {
-        setCookie("userId", data.uid, 0.1);
-        setCookie("username", data.user.username, 0.1);
+        setCookie("userId", data.uid, 0.041);
+        setCookie("username", data.user.username, 0.041);
       }
       location.href = "index.html";
     }

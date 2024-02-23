@@ -71,3 +71,61 @@
 .popup button:hover {
     background-color: #45a049;
 }
+
+
+#startButton {
+    background-color: #4CAF50;
+    /* Green background */
+    border: none;
+    /* Remove borders */
+    color: white;
+    /* White text */
+    padding: 15px 32px;
+    /* Padding */
+    text-align: center;
+    /* Center text */
+    text-decoration: none;
+    /* Remove underline */
+    display: inline-block;
+    /* Display as inline-block */
+    font-size: 16px;
+    /* Font size */
+    margin: 4px 2px;
+    /* Margin */
+    transition-duration: 0.4s;
+    /* Animation duration */
+    cursor: pointer;
+    /* Cursor pointer */
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: 0 6px 10px 0 rgba(0, 0, 0, 0.2);
+    /* Add shadow */
+}
+
+/* Change the color of the button when hovered */
+#startButton:hover {
+    background-color: #45a049;
+    /* Darker green */
+}
+
+
+#timer {
+    font-family: Arial, sans-serif;
+    /* Choose a suitable font */
+    font-size: 15px;
+    /* Font size */
+    color: #333;
+    /* Text color */
+    padding: 10px;
+    /* Padding */
+    border-radius: 5px;
+    /* Rounded corners */
+    text-align: center;
+    /* Center text */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    /* Add shadow */
+    width: 200px;
+    /* Set a fixed width */
+    margin: 0 auto;
+    /* Center horizontally */
+}
