@@ -88,6 +88,8 @@ def main(directory_path):
                 if dtw_distance < min_dtw_distances[part_num]:
                     min_dtw_distances[part_num] = dtw_distance
 
+     
+
     result = {
         'min_dtw_distances': min_dtw_distances
     }

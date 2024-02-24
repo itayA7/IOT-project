@@ -52,7 +52,6 @@ app.post("/espcam/dtw",async (req,res)=>{
     const keypointsInput=req.body.keypoints;
     const excNumberInput=req.body.exeNum;
     const result=await runPythonScript(keypointsInput,excNumberInput);
-    console.log(result);
     res.status(401).json({ status: "success", min_dtw_distances: result });
 
   }

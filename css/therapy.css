@@ -129,3 +129,46 @@
     margin: 0 auto;
     /* Center horizontally */
 }
+
+
+.therapy-guidance-popup-content {
+    background-color: #ddf3d0;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%;
+    max-width: 600px;
+}
+
+.therapy-guidance-popup {
+    position: fixed;
+    z-index: 999;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+.therapy-guidance-close {
+    color: #aaa;
+    float: right;
+    font-size: 66px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.therapy-guidance-close:hover,
+.therapy-guidance-close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#exerciseVideo {
+    width: 100%;
+    /* Ensure the video takes up the full width of the popup */
+    height: auto;
+    /* Maintain aspect ratio */
+}

@@ -24,12 +24,13 @@ const exerciseWantedIndex = {
 
 
 
-
+const userId = getCookie("userId");
+if (!userId) window.location.href="error.html";
 window.onload=async ()=>{
     try{
         const response = await fetch("http://localhost:8080/espcam");
         const data = await response.json();;
-        console.log(data.ip);
+        //console.log(data.ip);
         checkServerAvailability(data.ip, maxWaitTime);
     }
     catch{
@@ -77,6 +78,7 @@ function recognizePoseFramesAuto() {
             flipHorizontal: false
         });
     }).then(function (pose) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
             drawKeypoints(pose.keypoints);
             var currentPose = [];
             pose.keypoints.forEach((point, index) => {
@@ -85,8 +87,8 @@ function recognizePoseFramesAuto() {
                     currentPose.push(currentPart);
                 }
             });
+            console.log(currentPose);
             poses.push(currentPose);
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         })
 }
@@ -111,8 +113,22 @@ function selectExercise(popupExerciseSelected) {
     excercie = popupExerciseSelected;
     console.log("Selected Exercise:", excercie);
     document.getElementById('exercisePopup').style.display = 'none';
-    document.getElementById('startButton').style.display="block";
+    document.getElementById('startButton').style.display = "block";
+    
+    // Display the popup message
+    var popup = document.getElementById('therapy-guidance-popup');
+    popup.style.display = 'block';
+    var popupGuidanceVideo = document.getElementById('exerciseVideo');
+    popupGuidanceVideo.src="./img/"+excercie+".mp4"
+    popupGuidanceVideo.play();
+
 }
+
+function closeTherapyGuidancePopup() {
+    var popup = document.getElementById('therapy-guidance-popup');
+    popup.style.display = 'none';
+}
+
 
 
 
@@ -120,7 +136,7 @@ var countdown=25;
 let timerDisplay = document.getElementById('timer');
 
 async function startTherapy(){
-    console.log("start!!")
+    console.log("start!!");
     countdownInterval=setInterval(()=>{
         countdown -= 1; 
         timerDisplay.textContent = `Time Left: ${countdown}`;
@@ -130,7 +146,6 @@ async function startTherapy(){
     }, 400);
     setTimeout(async()=>{
         audioElement.play();
-
         clearInterval(poseDetection);
         clearInterval(countdownInterval);
         ctx.clearRect(0, 0, canvas.width, canvas.height);

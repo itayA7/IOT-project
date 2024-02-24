@@ -28,7 +28,19 @@
         <h2>Choose an Exercise</h2>
         <button onclick="selectExercise(1)">Shoulder</button>
         <button onclick="selectExercise(2)">Knee</button>
-        <!-- Add more buttons for other exercises if needed -->
+    </div>
+
+    <div id="therapy-guidance-popup" class="therapy-guidance-popup" style="display: none;">
+        <span class="therapy-guidance-close" onclick="closeTherapyGuidancePopup()">&times;</span>
+        <div id="therapy-guidance-popup-content" class="therapy-guidance-popup-content">
+            <p>Before you start, make sure to position the camera in front of you, ensuring that your body is centered
+                in the frame. Choose a well-lit area to ensure clear visibility.</p>
+            <p>Follow the instructions in the video below as a guide for your exercises. Good luck!</p>
+            <video id="exerciseVideo" controls>
+                <source type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
     </div>
 
 
