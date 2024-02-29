@@ -6,6 +6,13 @@ import sys
 
 sys.path.append(r'C:\Users\itaya\AppData\Local\Programs\Python\Python310\Lib\site-packages')
 
+#max value of dtw for each part to be consider "good"
+#different values to different exercise
+exercise_max_dtw_distances = {
+    1: {5: 0.5, 6: 0.7, 7: 0.8,8:1,9:1,10:1,11:1,12:1},
+    2: {0: 0.6, 1: 0.8, 2: 0.9},
+}
+
 def load_keypoints_from_json(file_path):
     with open(file_path, 'r') as file:
         keypoints_data = json.load(file)
@@ -30,7 +37,7 @@ def l2_normalize(vector):
     return normalized_vector
 
 
-def main(directory_path):
+def main(directory_path,exc_number):
     input_keypoints = json.loads(sys.stdin.read())
     min_dtw_distances = {}
     # Extract unique part numbers
@@ -54,7 +61,7 @@ def main(directory_path):
     for part_num in part_numbers:
         input_sequences_normalized[part_num] = l2_normalize(input_sequences[part_num])
 
-    # Iterate over files in the directory
+    # run on all the files of the specific exercise
     for file_name in os.listdir(directory_path):
         if file_name.endswith('.json'):
             file_path = os.path.join(directory_path, file_name)
@@ -76,7 +83,6 @@ def main(directory_path):
                 file_sequences_normalized[part_num] = l2_normalize(file_sequences[part_num])
 
 
-
             # Calculate DTW distances for each part
             for part_num in part_numbers:
                 input_sequence = np.array(input_sequences_normalized[part_num])
@@ -88,10 +94,19 @@ def main(directory_path):
                 if dtw_distance < min_dtw_distances[part_num]:
                     min_dtw_distances[part_num] = dtw_distance
 
-     
+    #making array that will contain the parts which were preformed "good" and the one which were "bad"
+    accurate_parts = []
+    bad_parts = []
+    for part_num in part_numbers:
+        if(min_dtw_distances[part_num]<=exercise_max_dtw_distances[exc_number][part_num]):
+            accurate_parts.append(part_num)
+        else:
+            bad_parts.append(part_num)
 
     result = {
-        'min_dtw_distances': min_dtw_distances
+        'min_dtw_distances': min_dtw_distances,
+        'accurate_part':accurate_parts,
+        'not_accurate_part':bad_parts
     }
     print(json.dumps(result))
 
@@ -100,4 +115,4 @@ if __name__ == "__main__":
     exc_number_from_node = sys.argv[1]
     input_file_path = 'keypoints_json/bad_test.json'
     directory_path = 'E:/מכללה/IOT/final project-2024/python ml/keypoints_json/exc'+str(exc_number_from_node)
-    main(directory_path)
+    main(directory_path,int(exc_number_from_node))

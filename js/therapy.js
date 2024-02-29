@@ -20,6 +20,12 @@ const exerciseWantedIndex = {
     5: [],
     6: [],
 };
+const keyPointsNumbersToNames={
+    0:'nose', 1:'leftEye', 2:'rightEye', 3:'leftEar' ,4:'rightEar',
+    5:'leftShoulder',6:'rightShoulder', 7 : 'leftElbow', 8:'rightElbow',
+    9:'leftWrist',10:'rightWrist', 11:'leftHip',12:'rightHip', 13:'leftKnee', 
+    14:'rightKnee',15:'leftAnkle',16:'rightAnkle'
+}
 
 
 
@@ -87,7 +93,6 @@ function recognizePoseFramesAuto() {
                     currentPose.push(currentPart);
                 }
             });
-            console.log(currentPose);
             poses.push(currentPose);
 
         })
@@ -108,7 +113,7 @@ function drawKeypoints(keypoints) {
 }
 
 
-var excercie = 1;
+var excercie = 0;
 function selectExercise(popupExerciseSelected) {
     excercie = popupExerciseSelected;
     console.log("Selected Exercise:", excercie);
@@ -158,9 +163,15 @@ async function startTherapy(){
             body: JSON.stringify({ keypoints: poses,exeNum:excercie }) // Send 'poses' array as JSON data
         });
         const data = await response.json();
-        console.log(data);
-       
-        document.getElementById('popupData').textContent =isGood;
+        console.log(data)
+
+        var message="You need to improve in: \n"
+        const server_result_respone=data.result.not_accurate_part;
+        server_result_respone.forEach((num)=> {
+            message=message+keyPointsNumbersToNames[num]+",\n";
+        });
+
+        document.getElementById('popupData').textContent =message;
         document.getElementById('popup-result-id').style.display = 'block';;
     },1000*(countdown+1));
 }
