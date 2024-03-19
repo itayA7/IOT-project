@@ -1,6 +1,6 @@
 const { auth, db } = require("./configFirebase"); // get the firebase app and auth from configFirebase.js file
 const {signInWithEmailAndPassword,createUserWithEmailAndPassword} = require("firebase/auth");
-const { ref, set, get, child } = require("firebase/database");
+const { ref, set, get, child,push } = require("firebase/database");
 const express = require("express"); //import ndoe express
 const bodyParser = require("body-parser"); // Import body-parser
 const cors = require("cors");
@@ -52,15 +52,28 @@ app.post("/espcam/dtw",async (req,res)=>{
     const keypointsInput=req.body.keypoints;
     const excNumberInput=req.body.exeNum;
     const result=await runPythonScript(keypointsInput,excNumberInput);
-    res.status(401).json({ status: "success", result: result });
+    res.status(200).json({ status: "success", result: result });
 
   }
   catch(error){
     const errorCode = error || "unknown";
     res.status(401).json({ status: "failed", message: errorCode });
   }
-  
 });
+
+app.post("/espcam/saveHistory",async (req,res)=>{
+  try{
+    const uid=req.body.userId;
+    const data_of_session=req.body.data;
+    writeSessionToHistory(uid,data_of_session);
+    res.status(200).json({ status: "success" });
+  }
+  catch(error){
+    console.log(error)
+    const errorCode=error||"unknown";
+    res.status(401).json({status:"failed",message:errorCode})
+  }
+})
 
 // Start the server
 app.listen(port, () => {
@@ -104,6 +117,45 @@ function writeUserData(userId, email, name, age) {
   });
   console.log("user add succesfuly");
 }
+
+function writeSessionToHistory(userId,data){
+  const date = new Date();
+
+  const currentDate = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
+  console.log(currentDate)
+
+  const postListRef = ref(db, 'history/');
+  const newPostRef = push(postListRef);
+  set(newPostRef, {
+    date: currentDate,
+    not_accurate_parts: data,
+    uid:userId  });
+   
+  console.log("history addeed successfuly")
+}
+
+async function getHistoryByUserId(userId) {
+  try {
+      // Reference to the history node for the user
+      const historyRef = ref(db, `history/${userId}`);
+      
+      // Get the data from the history node
+      const snapshot = await get(historyRef);
+
+      if (snapshot.exists()) {
+          // Extract the history data from the snapshot
+          const historyData = snapshot.val();
+          return historyData;
+      } else {
+          console.log("No history data available for the user");
+          return null;
+      }
+  } catch (error) {
+      console.error("Error while getting history data:", error);
+      throw error;
+  }
+}
+
 
 async function getUserDataFromDatabase(userId) {
   try {

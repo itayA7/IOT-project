@@ -1,3 +1,4 @@
+//function that get the cookie from the web cache
 function getCookie(cname) {
     let name = cname + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
@@ -14,6 +15,7 @@ function getCookie(cname) {
     return null;
   }
   
+  //function that add cookie to the document. the function recive the cookie key name+ value+ how long the cookie will work
   function setCookie(cname, cvalue, exdays) {
     const d = new Date();
     d.setTime(d.getTime() + exdays * 24 * 60 * 60 * 1000);
@@ -26,8 +28,6 @@ function getCookie(cname) {
     const userId = getCookie("userId");
     if (!userId) {
       document.getElementById("therapy-page-button").href="error.html";
-      //document.body.style.backgroundColor = "#1C2127";
-      //document.getElementById("not-logged-in").style.display="";
     }
   };
   

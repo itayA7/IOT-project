@@ -40,7 +40,6 @@ window.onload=async ()=>{
         checkServerAvailability(data.ip, maxWaitTime);
     }
     catch{
-        console.log('There is a problem ):');
         alert("There is a problem ): Our Server is not available,refresh the page")    
         window.location.href="./index.html";
 
@@ -137,7 +136,7 @@ function closeTherapyGuidancePopup() {
 
 
 
-var countdown=25;
+var countdown=5;
 let timerDisplay = document.getElementById('timer');
 
 async function startTherapy(){
@@ -172,11 +171,22 @@ async function startTherapy(){
         });
 
         document.getElementById('popupData').textContent =message;
-        document.getElementById('popup-result-id').style.display = 'block';;
+        document.getElementById('popup-result-id').style.display = 'block';
+        //const IsSavingTraining = confirm('Do you want to save the training session in history?');
+        //if(IsSavingTraining)saveTrainingSession(server_result_respone,userId);
+
     },1000*(countdown+1));
 }
 
 
 
-
+async function saveTrainingSession(sessionData,uid){
+    const response = await fetch("http://localhost:8080/espcam/saveHistory", {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({data:sessionData,userId:uid}) 
+    });
+}
 
