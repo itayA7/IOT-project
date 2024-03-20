@@ -3,11 +3,13 @@ window.onload = () => {
   const userId = getCookie("userId");//checking if userId cookie exsist in the document(which mean user has logged in)
   if (userId) {//the user exsist
     const username=getCookie("username");
-    document.getElementById("second_section").remove();
+    //document.getElementById("second_section").remove();
     //creating logout button
     document.getElementById("login_offer").innerHTML = `
     I can see that you have already logged in !  <a href="index.html" id="logout_button">click here</a> to logout`;
-    document.getElementById("home-title").innerHTML="Welcome back "+username;
+    document.getElementById("register_offer").innerHTML = `
+    To See Your History, <a href="history.html">click here</a>`;
+    document.getElementById("home-title").innerHTML="Welcome back "+username+"😊";
     //click event listener to the logout button that remvoe the user's cookies
     document.getElementById("logout_button").addEventListener("click", () => {
       setCookie("userId", "", -1);

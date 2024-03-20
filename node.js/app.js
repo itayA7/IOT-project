@@ -1,6 +1,6 @@
 const { auth, db } = require("./configFirebase"); // get the firebase app and auth from configFirebase.js file
 const {signInWithEmailAndPassword,createUserWithEmailAndPassword} = require("firebase/auth");
-const { ref, set, get, child,push } = require("firebase/database");
+const { ref, set, get, child,push,query,equalTo } = require("firebase/database");
 const express = require("express"); //import ndoe express
 const bodyParser = require("body-parser"); // Import body-parser
 const cors = require("cors");
@@ -75,6 +75,12 @@ app.post("/espcam/saveHistory",async (req,res)=>{
   }
 })
 
+app.post("/espcam/getUserHistory",async(req,res)=>{
+    const uid=req.body.userId;
+    const userHistory=await getHistoryByUserId(uid);
+    res.status(200).json({userHistory:userHistory})
+  })
+
 // Start the server
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
@@ -120,10 +126,7 @@ function writeUserData(userId, email, name, age) {
 
 function writeSessionToHistory(userId,data){
   const date = new Date();
-
   const currentDate = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
-  console.log(currentDate)
-
   const postListRef = ref(db, 'history/');
   const newPostRef = push(postListRef);
   set(newPostRef, {
@@ -135,26 +138,23 @@ function writeSessionToHistory(userId,data){
 }
 
 async function getHistoryByUserId(userId) {
-  try {
-      // Reference to the history node for the user
-      const historyRef = ref(db, `history/${userId}`);
-      
-      // Get the data from the history node
-      const snapshot = await get(historyRef);
-
-      if (snapshot.exists()) {
-          // Extract the history data from the snapshot
-          const historyData = snapshot.val();
-          return historyData;
-      } else {
-          console.log("No history data available for the user");
-          return null;
-      }
-  } catch (error) {
-      console.error("Error while getting history data:", error);
-      throw error;
+  const historyRef = ref(db, 'history/');
+  const snapshot = await get(historyRef);
+  const userHistory = [];
+  snapshot.forEach((childSnapshot) => {
+    const historyData = childSnapshot.val();
+    // Check if this history record belongs to the user
+    if (historyData.uid === userId) {
+      userHistory.push(historyData);
+    }
+  });
+  if (userHistory.length === 0) {
+    console.log('No history found for the user');
+    userHistory=null;
   }
+  return userHistory;
 }
+
 
 
 async function getUserDataFromDatabase(userId) {
