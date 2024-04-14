@@ -136,7 +136,7 @@ function closeTherapyGuidancePopup() {
 
 
 
-var countdown=5;
+var countdown=25;
 let timerDisplay = document.getElementById('timer');
 
 async function startTherapy(){
@@ -172,8 +172,8 @@ async function startTherapy(){
 
         document.getElementById('popupData').textContent =message;
         document.getElementById('popup-result-id').style.display = 'block';
-        //const IsSavingTraining = confirm('Do you want to save the training session in history?');
-        //if(IsSavingTraining)saveTrainingSession(server_result_respone,userId);
+        const IsSavingTraining = confirm('Do you want to save the training session in history?');
+        if(IsSavingTraining)saveTrainingSession(server_result_respone,userId);
 
     },1000*(countdown+1));
 }

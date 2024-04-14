@@ -47,3 +47,10 @@ body {
 .navigation_bar li a:hover {
   background-color: #111;
 }
+
+#user-name {
+  float: right;
+  padding: 14px 16px;
+  margin-right: 50px;
+  font-weight: 800;
+}

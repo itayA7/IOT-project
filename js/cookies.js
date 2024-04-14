@@ -24,10 +24,19 @@ function getCookie(cname) {
   }
 
 
-  window.onload=()=>{
+  window.addEventListener('load',()=>{
     const userId = getCookie("userId");
+    //אם המשתמש לא מחובר אז צריך להעביר אותו לדף השגיאה בזמן שהוא מנסה להיכנס לדף הטיפולים
     if (!userId) {
       document.getElementById("therapy-page-button").href="error.html";
     }
-  };
+    //אם המשתמש מחובר אז יש להציג לו כפתור לדף ההיסטוריה שלו במקום כפתור ההתחברות
+    else{
+      document.getElementById("login-page-button").href="history.html";
+      document.getElementById("login-page-button").innerHTML="History";
+      const username=getCookie("username");
+      document.getElementById("user-name").innerHTML=username;
+
+    }
+  });
   

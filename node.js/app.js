@@ -1,27 +1,28 @@
-const { auth, db } = require("./configFirebase"); // get the firebase app and auth from configFirebase.js file
-const {signInWithEmailAndPassword,createUserWithEmailAndPassword} = require("firebase/auth");
-const { ref, set, get, child,push,query,equalTo } = require("firebase/database");
-const express = require("express"); //import ndoe express
-const bodyParser = require("body-parser"); // Import body-parser
-const cors = require("cors");
-const { spawn } = require('child_process');
+// Importing necessary modules and dependencies
+const { auth, db } = require("./configFirebase"); // Import Firebase configuration for authentication and database
+const { signInWithEmailAndPassword, createUserWithEmailAndPassword } = require("firebase/auth"); // Import authentication methods
+const { ref, set, get, child, push, query, equalTo } = require("firebase/database"); // Import database methods
+const express = require("express"); // Import Express.js framework for creating server-side applications
+const bodyParser = require("body-parser"); // Middleware for parsing request bodies
+const cors = require("cors"); // Middleware for enabling Cross-Origin Resource Sharing
+const { spawn } = require('child_process'); // Module for executing external processes, used to run Python scripts
 
-
+// Initialize Express app
 const app = express();
 const port = 8080;
-app.use(bodyParser.json());
-app.use(cors({
-    origin: "*",})
-);
 
+// Middleware setup
+app.use(bodyParser.json()); // Parse JSON request bodies
+app.use(cors({ origin: "*" })); // Enable CORS for all origins
 
-
+// Route for handling user login
 app.post("/login_form", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
   login(email, password, res);
 });
 
+// Route for handling user registration
 app.post("/register_form", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
@@ -30,68 +31,61 @@ app.post("/register_form", (req, res) => {
   signUp(res, email, password, name, age);
 });
 
-
-app.get("/espcam",async (req,res)=>{
-  try{
-    const ip=await getEspCamIP();
-    console.log("ESPCAM IP:"+ip);
-    res.status(200).json({ status: "success", ip:ip });
-  }
-  catch (error) {
+// Route for fetching ESPCam IP address
+app.get("/espcam", async (req, res) => {
+  try {
+    const ip = await getEspCamIP();
+    console.log("ESPCAM IP:" + ip);
+    res.status(200).json({ status: "success", ip: ip });
+  } catch (error) {
     const errorCode = error.code || "unknown";
     res.status(401).json({ status: "failed", message: errorCode });
   }
 });
 
-
-
-const fs = require('fs');
-
-app.post("/espcam/dtw",async (req,res)=>{
-  try{
-    const keypointsInput=req.body.keypoints;
-    const excNumberInput=req.body.exeNum;
-    const result=await runPythonScript(keypointsInput,excNumberInput);
+// Route for running Python script with input data
+app.post("/espcam/dtw", async (req, res) => {
+  try {
+    const keypointsInput = req.body.keypoints;
+    const excNumberInput = req.body.exeNum;
+    const result = await runPythonScript(keypointsInput, excNumberInput);
     res.status(200).json({ status: "success", result: result });
-
-  }
-  catch(error){
+  } catch (error) {
     const errorCode = error || "unknown";
     res.status(401).json({ status: "failed", message: errorCode });
   }
 });
 
-app.post("/espcam/saveHistory",async (req,res)=>{
-  try{
-    const uid=req.body.userId;
-    const data_of_session=req.body.data;
-    writeSessionToHistory(uid,data_of_session);
+// Route for saving user session history to the database
+app.post("/espcam/saveHistory", async (req, res) => {
+  try {
+    const uid = req.body.userId;
+    const data_of_session = req.body.data;
+    writeSessionToHistory(uid, data_of_session);
     res.status(200).json({ status: "success" });
-  }
-  catch(error){
+  } catch (error) {
     console.log(error)
-    const errorCode=error||"unknown";
-    res.status(401).json({status:"failed",message:errorCode})
+    const errorCode = error || "unknown";
+    res.status(401).json({ status: "failed", message: errorCode })
   }
-})
+});
 
-app.post("/espcam/getUserHistory",async(req,res)=>{
-    const uid=req.body.userId;
-    const userHistory=await getHistoryByUserId(uid);
-    res.status(200).json({userHistory:userHistory})
-  })
+// Route for retrieving user session history from the database
+app.post("/espcam/getUserHistory", async (req, res) => {
+  const uid = req.body.userId;
+  const userHistory = await getHistoryByUserId(uid);
+  res.status(200).json({ userHistory: userHistory });
+});
 
-// Start the server
+// Server initialization
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
 
-
-
-
+// Function for user login
 async function login(email, password, res) {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth,email,password);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
     const uid = user.uid;
     const userDbData = await getUserDataFromDatabase(uid);
@@ -102,7 +96,7 @@ async function login(email, password, res) {
   }
 }
 
-
+// Function for user registration
 async function signUp(res, email, password, name, age) {
   try {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
@@ -115,28 +109,31 @@ async function signUp(res, email, password, name, age) {
   }
 }
 
+// Function for writing user data to the database upon registration
 function writeUserData(userId, email, name, age) {
   set(ref(db, "users/" + userId), {
     username: name,
     email: email,
     age: age,
   });
-  console.log("user add succesfuly");
+  console.log("user added successfully");
 }
 
-function writeSessionToHistory(userId,data){
+// Function for writing user session history to the database
+function writeSessionToHistory(userId, data) {
   const date = new Date();
-  const currentDate = `${date.getDate()}-${date.getMonth()+1}-${date.getFullYear()}`;
+  const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
   const postListRef = ref(db, 'history/');
   const newPostRef = push(postListRef);
   set(newPostRef, {
     date: currentDate,
     not_accurate_parts: data,
-    uid:userId  });
-   
-  console.log("history addeed successfuly")
+    uid: userId
+  });
+  console.log("history added successfully")
 }
 
+// Function for retrieving user session history from the database
 async function getHistoryByUserId(userId) {
   const historyRef = ref(db, 'history/');
   const snapshot = await get(historyRef);
@@ -150,13 +147,12 @@ async function getHistoryByUserId(userId) {
   });
   if (userHistory.length === 0) {
     console.log('No history found for the user');
-    userHistory=null;
+    userHistory = null;
   }
   return userHistory;
 }
 
-
-
+// Function for retrieving user data from the database
 async function getUserDataFromDatabase(userId) {
   try {
     const dbRef = ref(db);
@@ -166,15 +162,16 @@ async function getUserDataFromDatabase(userId) {
       return userDbData;
     } else {
       console.log("No data available");
-      return null; 
+      return null;
     }
   } catch (error) {
     console.error(error);
-    throw error; 
+    throw error;
   }
 }
 
-async function getEspCamIP(){
+// Function for retrieving ESPCam IP address from the database
+async function getEspCamIP() {
   try {
     const dbRef = ref(db);
     const snapshot = await get(child(dbRef, `espcam/ip`));
@@ -183,36 +180,37 @@ async function getEspCamIP(){
       return ipData;
     } else {
       console.log("No data available");
-      return null; 
+      return null;
     }
   } catch (error) {
     console.error(error);
-    throw error; 
+    throw error;
   }
 }
 
-
-process.env.PYTHONUNBUFFERED=1;
+// Function for executing a Python script asynchronously
 async function runPythonScript(jsonData, excNumber) {
   return new Promise((resolve, reject) => {
-    const pythonProcess = spawn('C:/Users/itaya/AppData/Local/Programs/Python/Python310/python.exe', ['../python ml/testss.py', excNumber]);
+    // Spawn a child process to run the Python script
+    const pythonProcess = spawn('C:/Users/itaya/AppData/Local/Programs/Python/Python310/python.exe', ['../python ml/DTWNode.py', excNumber]);
     let result;
+    // Handle output from the Python script
     pythonProcess.stdout.on('data', (data) => {
       result = JSON.parse(data.toString());
       console.log('Received from Python:', result);
     });
+    // Handle errors from the Python script
     pythonProcess.stderr.on('data', (data) => {
       console.error(`Error from Python: ${data}`);
       reject("Server Error");
     });
+    // Handle the Python process closing
     pythonProcess.on('close', (code) => {
       console.log("Python process ended with code:", code);
       resolve(result);
     });
+    // Send JSON data to the Python script
     pythonProcess.stdin.write(JSON.stringify(jsonData));
     pythonProcess.stdin.end();
   });
 }
-
-
-

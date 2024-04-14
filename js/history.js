@@ -7,6 +7,7 @@ const keyPointsNumbersToNames = {
     14: 'rightKnee', 15: 'leftAnkle', 16: 'rightAnkle'
 };
 
+
 window.onload=async ()=>{
     const response = await fetch("http://localhost:8080/espcam/getUserHistory", {
       method: "POST",
