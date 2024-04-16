@@ -1,0 +1,33 @@
+.footer {
+    display: flex;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color: rgba(6, 1, 77, 0.821);
+}
+
+.footer-column {
+    width: 50%;
+    float: left;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+}
+
+.tile-content {
+    padding: 5px 70px;
+}
+
+.tile-content .contact-row {
+    margin-bottom: 30px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+
+.tile-field {
+    margin-left: 20px;
+}
