@@ -2,7 +2,7 @@ imageElement = document.getElementById('cam-stream');
 canvas = document.getElementById('canvas');
 ctx = canvas.getContext('2d');
 var audioElement = document.getElementById('audio');
-
+var startSoundElement=document.getElementById('start-sound');
 var maxWaitTime = 3500; 
 var frame = 0;
 var poses = [];
@@ -15,10 +15,7 @@ var flipHorizontal = true;
 const exerciseWantedIndex = {
     1: [5, 6, 7, 8, 9, 10, 11, 12],
     2: [3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-    3: [],
-    4: [],
-    5: [],
-    6: [],
+    3: [11,12,13,14,15,16]
 };
 const keyPointsNumbersToNames={
     0:'nose', 1:'leftEye', 2:'rightEye', 3:'leftEar' ,4:'rightEar',
@@ -101,7 +98,7 @@ function recognizePoseFramesAuto() {
 function drawKeypoints(keypoints) {
     for (let i = 0; i < keypoints.length; i++) {
         let keypoint = keypoints[i];
-        if (keypoint.score > 0.5) {
+        if (keypoint.score > 0.3) {
             ctx.beginPath();
             ctx.arc(keypoint.position.x, keypoint.position.y, 5, 0, 2 * Math.PI);
             ctx.fillStyle = 'red';
@@ -178,7 +175,10 @@ async function startTherapy(){
     },1000*(countdown+1));
 }
 
-
+function startTherapyWithDelay(){
+    startSoundElement.play();
+    setTimeout(startTherapy,3000);
+};
 
 async function saveTrainingSession(sessionData,uid){
     const response = await fetch("http://localhost:8080/espcam/saveHistory", {
@@ -186,7 +186,7 @@ async function saveTrainingSession(sessionData,uid){
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({data:sessionData,userId:uid}) 
+        body: JSON.stringify({data:sessionData,userId:uid,exc:excercie}) 
     });
 }
 

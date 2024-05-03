@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Therapy Data</title>
+    <title>Therapy </title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/therapy.css">
     <script src="./js/cookies.js"></script>
@@ -45,7 +45,7 @@
     </div>
 
 
-    <button type="button" onclick="startTherapy()" id="startButton" style="display: none;">Start your Therapy
+    <button type="button" onclick="startTherapyWithDelay()" id="startButton" style="display: none;">Start your Therapy
         Now!</button>
 
 
@@ -54,12 +54,12 @@
         <canvas id="canvas" width="640" height="480"></canvas>
         <div id="timer"></div>
         <audio id="audio" src="img/buzzer.mp3"></audio>
-
     </div>
 
     <div id="popup-result-id" class="popup-result">
         <span class="popup-result-content" id="popupData"></span>
     </div>
+    <audio id="start-sound" src="img/3-seconds-countdown.m4a"></audio>
 
 
 </body>

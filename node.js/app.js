@@ -61,7 +61,8 @@ app.post("/espcam/saveHistory", async (req, res) => {
   try {
     const uid = req.body.userId;
     const data_of_session = req.body.data;
-    writeSessionToHistory(uid, data_of_session);
+    const excNumber=req.body.exc;
+    writeSessionToHistory(uid, data_of_session,excNumber);
     res.status(200).json({ status: "success" });
   } catch (error) {
     console.log(error)
@@ -120,13 +121,14 @@ function writeUserData(userId, email, name, age) {
 }
 
 // Function for writing user session history to the database
-function writeSessionToHistory(userId, data) {
+function writeSessionToHistory(userId, data,excNumber) {
   const date = new Date();
   const currentDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
   const postListRef = ref(db, 'history/');
   const newPostRef = push(postListRef);
   set(newPostRef, {
     date: currentDate,
+    exercise:excNumber,
     not_accurate_parts: data,
     uid: userId
   });

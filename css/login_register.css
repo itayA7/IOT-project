@@ -1,122 +1,219 @@
+/* Box Model */
+.wrapper {
+  margin-top: 30px;
+  /* Adds margin to the top of the wrapper */
+  margin-left: auto;
+  /* Centers the wrapper horizontally */
+  margin-right: auto;
+  /* Centers the wrapper horizontally */
+  width: 380px;
+  /* Sets the width of the wrapper */
+  background: #fff;
+  /* Sets the background color of the wrapper */
+  border-radius: 15px;
+  /* Rounds the corners of the wrapper */
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.1);
+  /* Adds a shadow effect to the wrapper */
+}
 
-.wrapper{
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    width: 380px;
-    background: #fff;
-    border-radius: 15px;
-    box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
+/* Typography */
+.wrapper .title {
+  font-size: 35px;
+  /* Sets the font size of the title */
+  font-weight: 600;
+  /* Sets the font weight of the title */
+  text-align: center;
+  /* Centers the text of the title */
+  line-height: 100px;
+  /* Sets the height of each line of the title */
+  color: #fff;
+  /* Sets the text color of the title */
+  user-select: none;
+  /* Prevents user selection of the title */
+  border-radius: 15px 15px 0 0;
+  /* Rounds the top corners of the title */
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  /* Sets a gradient background for the title */
 }
-.wrapper .title{
-    font-size: 35px;
-    font-weight: 600;
-    text-align: center;
-    line-height: 100px;
-    color: #fff;
-    user-select: none;
-    border-radius: 15px 15px 0 0;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+
+/* Form Styling */
+.wrapper form {
+  padding: 10px 30px 50px 30px;
+  /* Sets padding for the form */
 }
-.wrapper form{
-    padding: 10px 30px 50px 30px;
+
+.wrapper form .field {
+  height: 50px;
+  /* Sets the height of the form field */
+  width: 100%;
+  /* Sets the width of the form field */
+  margin-top: 20px;
+  /* Adds margin to the top of the form field */
+  position: relative;
+  /* Sets the positioning context for absolute child elements */
 }
-.wrapper form .field{
-    height: 50px;
-    width: 100%;
-    margin-top: 20px;
-    position: relative;
+
+.wrapper form .field input {
+  height: 100%;
+  /* Sets the height of the input field */
+  width: 100%;
+  /* Sets the width of the input field */
+  outline: none;
+  /* Removes the default outline */
+  font-size: 17px;
+  /* Sets the font size of the input text */
+  padding-left: 20px;
+  /* Adds padding to the left of the input */
+  border: 1px solid lightgrey;
+  /* Sets border properties for the input */
+  border-radius: 25px;
+  /* Rounds the corners of the input */
+  transition: all 0.3s ease;
+  /* Adds transition effects */
 }
-.wrapper form .field input{
-    height: 100%;
-    width: 100%;
-    outline: none;
-    font-size: 17px;
-    padding-left: 20px;
-    border: 1px solid lightgrey;
-    border-radius: 25px;
-    transition: all 0.3s ease;
-}
+
 .wrapper form .field input:focus,
-form .field input:valid{
-    border-color: #4158d0;
+form .field input:valid {
+  border-color: #4158d0;
+  /* Sets border color when input is focused or valid */
 }
-.wrapper form .field label{
-    position: absolute;
-    top: 50%;
-    left: 20px;
-    color: #999999;
-    font-weight: 400;
-    font-size: 17px;
-    pointer-events: none;
-    transform: translateY(-50%);
-    transition: all 0.3s ease;
-}
-form .field input:focus ~ label,
-form .field input:valid ~ label{
-    top: 0%;
-    font-size: 16px;
-    color: #4158d0;
-    background: #fff;
-    transform: translateY(-50%);
-}
-form .content{
-    display: flex;
-    width: 100%;
-    height: 50px;
-    font-size: 16px;
-    align-items: center;
-    justify-content: space-around;
-}
-form .content .checkbox{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-form .content input{
-    width: 15px;
-    height: 15px;
-    background: red;
-}
-form .content label{
-    color: #262626;
-    user-select: none;
-    padding-left: 5px;
-}
-form .content .pass-link{
-    color: "";
-  }
-  form .field input[type="submit"]{
-    color: #fff;
-    border: none;
-    padding-left: 0;
-    margin-top: -10px;
-    font-size: 20px;
-    font-weight: 500;
-    cursor: pointer;
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
-    transition: all 0.3s ease;
-  }
-  form .field input[type="submit"]:active{
-    transform: scale(0.95);
-  }
-  form .signup-link{
-    color: #262626;
-    margin-top: 20px;
-    text-align: center;
-  }
-  form .pass-link a,
-  form .signup-link a{
-    color: #4158d0;
-    text-decoration: none;
-  }
-  form .pass-link a:hover,
-  form .signup-link a:hover{
-    text-decoration: underline;
-  }
 
-  #message{
-    color: red;
-    font-weight: bolder;
-    font-size: 1.2rem;
-  }
+.wrapper form .field label {
+  position: absolute;
+  /* Positions the label absolutely */
+  top: 50%;
+  /* Aligns the label vertically */
+  left: 20px;
+  /* Positions the label to the left */
+  color: #999999;
+  /* Sets the color of the label text */
+  font-weight: 400;
+  /* Sets the font weight of the label text */
+  font-size: 17px;
+  /* Sets the font size of the label text */
+  pointer-events: none;
+  /* Prevents interaction with the label */
+  transform: translateY(-50%);
+  /* Centers the label vertically */
+  transition: all 0.3s ease;
+  /* Adds transition effects */
+}
+
+/* Interactivity */
+form .field input:focus~label,
+form .field input:valid~label {
+  top: 0%;
+  /* Moves the label to the top when input is focused or valid */
+  font-size: 16px;
+  /* Changes the font size of the label */
+  color: #4158d0;
+  /* Changes the color of the label text */
+  background: #fff;
+  /* Sets background color behind the label */
+  transform: translateY(-50%);
+  /* Centers the label vertically */
+}
+
+/* Additional Styling */
+form .content {
+  display: flex;
+  /* Displays content in a flex container */
+  width: 100%;
+  /* Sets the width of the content */
+  height: 50px;
+  /* Sets the height of the content */
+  font-size: 16px;
+  /* Sets the font size of the content */
+  align-items: center;
+  /* Aligns content vertically */
+  justify-content: space-around;
+  /* Distributes content evenly */
+}
+
+form .content .checkbox {
+  display: flex;
+  /* Displays content in a flex container */
+  align-items: center;
+  /* Aligns content vertically */
+  justify-content: center;
+  /* Centers content horizontally */
+}
+
+form .content input {
+  width: 15px;
+  /* Sets the width of the input */
+  height: 15px;
+  /* Sets the height of the input */
+  background: red;
+  /* Sets background color of the input */
+}
+
+form .content label {
+  color: #262626;
+  /* Sets the color of the label text */
+  user-select: none;
+  /* Prevents user selection of the label */
+  padding-left: 5px;
+  /* Adds padding to the left of the label */
+}
+
+/* Button Styling */
+form .field input[type="submit"] {
+  color: #fff;
+  /* Sets the text color of the submit button */
+  border: none;
+  /* Removes border of the submit button */
+  padding-left: 0;
+  /* Removes left padding of the submit button */
+  margin-top: -10px;
+  /* Moves the button up slightly */
+  font-size: 20px;
+  /* Sets the font size of the submit button */
+  font-weight: 500;
+  /* Sets the font weight of the submit button */
+  cursor: pointer;
+  /* Changes cursor to pointer on hover */
+  background: linear-gradient(-135deg, #c850c0, #4158d0);
+  /* Sets gradient background for the submit button */
+  transition: all 0.3s ease;
+  /* Adds transition effects */
+}
+
+form .field input[type="submit"]:active {
+  transform: scale(0.95);
+  /* Scales down the submit button when active */
+}
+
+/* Additional Links */
+form .signup-link {
+  color: #262626;
+  /* Sets the color of the signup link */
+  margin-top: 20px;
+  /* Adds margin to the top of the signup link */
+  text-align: center;
+  /* Centers the text of the signup link */
+}
+
+form .pass-link a,
+form .signup-link a {
+  color: #4158d0;
+  /* Sets the color of the link */
+  text-decoration: none;
+  /* Removes underline from the link */
+}
+
+form .pass-link a:hover,
+form .signup-link a:hover {
+  text-decoration: underline;
+  /* Underlines the link on hover */
+}
+
+/* Message Styling */
+#message {
+  color: red;
+  /* Sets the color of the message text */
+  font-weight: bolder;
+  /* Sets the font weight of the message text */
+  font-size: 1.2rem;
+  /* Sets the font size of the message text */
+}

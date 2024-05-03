@@ -1,56 +1,90 @@
+/* עיצוב רקע האתר  */
 body {
   background-color: #C4D6ED;
+  /* Set background color to a light blue */
   background-repeat: no-repeat;
+  /* Prevent background image from repeating */
   background-size: cover;
+  /* Ensure background image covers entire viewport */
   background-attachment: fixed;
+  /* Fix background image in place */
   margin: 0;
+  /* Remove default margin */
 }
 
+/* הגדרת הגדרות דיפולטיבויות לכל הדפים באתר */
 html,
 body {
   height: 100%;
+  /* Set height to 100% of viewport */
   margin: 0;
+  /* Remove default margin */
   padding: 0;
+  /* Remove default padding */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* הגדרת סוג הפונט הכללי באתר שיומש בכל הדפים (אלא אם הוגדר אחרת במקום ספציפי) */
   font-size: 1rem;
+  /*  הגדרת גודל הטקסט הכללי באתר שיומש בכל הדפים (אלא אם הוגדר אחרת במקום ספציפי)  */
   font-weight: 400;
+  /* Set base font weight */
   line-height: 1.5;
+  /* Set line height */
 }
 
+/* הגדרת אנימציה המדמה כתיבה של טקסט (בשימוש בכותרת דף הבית) */
 @keyframes typing {
   from {
     width: 0;
+    /* Start typing animation with width of 0 */
   }
-
 }
 
-/* Navigation bar styles */
+/*עיצוב כללי של סרגל הניווט לכל הדפים באתר */
 .navigation_bar {
   margin: 0;
+  /* Remove default margin */
   list-style-type: none;
+  /* Remove default list style */
   background-color: #35daec;
+  /* Set background color of navigation bar */
   overflow: hidden;
+  /* הסתר כל תוכן שעולה על גבולות האלמנט שלו, מונע ממנו להיות גלוי מחוץ לאזור המוגדר של המכולה*/
 }
 
+/* Styles for list items in navigation bar */
 .navigation_bar li {
   float: left;
+  /* Float list items to the left */
 }
 
+/* עיצוב הלינקים הנמאים בתוך סרגל הניווט */
 .navigation_bar li a {
   display: block;
+  /* Make links block-level elements */
   color: white;
+  /* Set text color to white */
   text-align: center;
+  /* Center-align text */
   padding: 14px 16px;
+  /* Set padding */
   text-decoration: none;
+  /* מחיקת הקו הדיפולטיבי המופיע מתחת לקישורים */
 }
 
+/* Hover effect for links in navigation bar */
 .navigation_bar li a:hover {
   background-color: #111;
+  /* Darken background color on hover */
 }
 
+/* user-name בשם ID עיצוב אלמטים בעלי  */
 #user-name {
   float: right;
+  /* Float user name to the right */
   padding: 14px 16px;
+  /* Set padding */
   margin-right: 50px;
+  /* Set right margin */
   font-weight: 800;
+  /* Set font weight to bold */
 }

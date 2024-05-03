@@ -134,9 +134,9 @@
 .therapy-guidance-popup-content {
     background-color: #ddf3d0;
     margin: 5% auto;
+    margin-top: 25px;
     padding: 20px;
     border: 1px solid #888;
-    width: 50%;
     max-width: 600px;
 }
 

@@ -14,6 +14,7 @@ sys.path.append(r'C:\Users\itaya\AppData\Local\Programs\Python\Python310\Lib\sit
 exercise_max_dtw_distances = {
     1: {5: 1.3, 6: 1.3, 7: 1.32, 8: 1.8, 9: 2, 10: 1.8, 11: 0.95, 12: 0.8},
     2: {0: 0.6, 1: 0.8, 2: 0.9},
+    3:{11:1.2,12:1.2,13:1.2,14:1.2,15:2,16:1},
 }
 
 

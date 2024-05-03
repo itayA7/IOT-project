@@ -30,14 +30,23 @@ function populateHistoryTable(userHistory) {
     // Clear existing table rows
     tableBody.innerHTML = '';
     // Populate table with user history
-    userHistory.forEach(historyRecord => {
+    userHistory.reverse().forEach(historyRecord => {
       const row = document.createElement('tr');
+      const exerciseCell = document.createElement('td');
+      exerciseCell.textContent = historyRecord.exercise;
+      console.log(historyRecord.exercise);
       const dateCell = document.createElement('td');
       dateCell.textContent = historyRecord.date;
       const notAccuratePartsCell = document.createElement('td');
-      const notAccuratePartsToNames=historyRecord.not_accurate_parts.map(number => keyPointsNumbersToNames[number]);
-      notAccuratePartsCell.textContent = notAccuratePartsToNames.join(', '); // Convert array to string
+      if(historyRecord.not_accurate_parts){
+        const notAccuratePartsToNames=historyRecord.not_accurate_parts.map(number => keyPointsNumbersToNames[number]);
+        notAccuratePartsCell.textContent = notAccuratePartsToNames.join(', '); // Convert array to string
+      }
+      else{
+        notAccuratePartsCell.textContent="nothing to improve!"
+      }
       row.appendChild(dateCell);
+      row.append(exerciseCell);
       row.appendChild(notAccuratePartsCell);
       tableBody.appendChild(row);
     });
